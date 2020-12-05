@@ -1,12 +1,14 @@
 package com.johnmsaylor.AuthServer.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 public class Payload {
     private String action;
-    private String data;
+    private Object data;
 
     public Payload() {}
 
-    public Payload(String action, String data) {
+    public Payload(String action, JsonNode data) {
         this.action = action;
         this.data = data;
     }
@@ -15,7 +17,11 @@ public class Payload {
         return action;
     }
 
-    public String getData() {
+    public Object getData() {
         return data;
+    }
+
+    public String getDataAsString() {
+        return data.toString();
     }
 }

@@ -1,21 +1,24 @@
 package com.johnmsaylor.AuthServer.service;
 
-import com.johnmsaylor.AuthServer.dao.UserDao;
 import com.johnmsaylor.AuthServer.model.User;
+import com.johnmsaylor.AuthServer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
-    private final UserDao userDao;
 
     @Autowired
-    public UserService(@Qualifier("test") UserDao userDao) {
-        this.userDao = userDao;
+    UserRepository database;
+
+    public User addUser(User user) {
+        return database.save(user);
     }
 
-    public void addUser(User user) {
-        userDao.insertUser(user);
+    public List<User> getUsers() {
+        return database.findAll();
     }
 }
