@@ -26,9 +26,8 @@ public class Controller {
 
     @PostMapping("/")
     public ResponseEntity main(@RequestBody Payload payload) {
-//        JsonObject payload = JsonParser.parseString(body).getAsJsonObject();
-//        String action = payload.get("action").getAsString();
-        String response = "Y";
+        String response = "";
+
         System.out.println(payload.getAction());
         System.out.println(payload.getData());
 
@@ -40,6 +39,9 @@ public class Controller {
                 System.out.println(newUser.getEmail() + " " + newUser.getPassword());
                 var result = userService.addUser(newUser);
                 response = result.getEmail();
+                break;
+            case "GET_TOKEN":
+
                 break;
             case "GET_USERS":
                 List<User> users = userService.getUsers();
