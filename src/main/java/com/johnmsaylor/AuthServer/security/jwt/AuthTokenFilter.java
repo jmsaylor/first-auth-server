@@ -44,6 +44,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             //TODO: error handling / logger
             System.out.println(e);
         }
+
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
     private String parseJwt(HttpServletRequest request) {
