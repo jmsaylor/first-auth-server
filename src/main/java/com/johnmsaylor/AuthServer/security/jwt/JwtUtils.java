@@ -15,9 +15,9 @@ public class JwtUtils implements Serializable {
 
 //    private static final long serialVersionUID = what the heck?
 
-    public static final long JWT_VALIDITY = 5 * 60 * 60;
+    public static final long JWT_VALIDITY = 60;
 
-    @Value("${johnmsaylor.app.jwtSecret}")
+    @Value("${app.jwtSecret}")
     private String jwtSecret;
 
 
@@ -27,6 +27,7 @@ public class JwtUtils implements Serializable {
 
          return Jwts.builder()
                  .setSubject(userPrincipal.getEmail())
+                 .claim("message", "hello")
                  .setIssuedAt(now)
                  .setExpiration(new Date(now.getTime() + JWT_VALIDITY))
                  .signWith(SignatureAlgorithm.HS256, jwtSecret)

@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint, Serializable {
-    long versionId;
+//    long versionId; TODO
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
