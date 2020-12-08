@@ -5,7 +5,8 @@ import com.johnmsaylor.AuthServer.model.Role;
 import com.johnmsaylor.AuthServer.model.User;
 import com.johnmsaylor.AuthServer.payload.request.LoginRequest;
 import com.johnmsaylor.AuthServer.payload.request.SignupRequest;
-import com.johnmsaylor.AuthServer.payload.response.JwtResponse;
+import com.johnmsaylor.AuthServer.payload.response.BasicJwtResponse;
+import com.johnmsaylor.AuthServer.payload.response.FullJwtResponse;
 import com.johnmsaylor.AuthServer.payload.response.MessageResponse;
 import com.johnmsaylor.AuthServer.repository.RoleRepository;
 import com.johnmsaylor.AuthServer.repository.UserRepository;
@@ -18,7 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -61,7 +61,7 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+        return ResponseEntity.ok(new BasicJwtResponse(jwt));
     }
 
     @PostMapping("/signup")
@@ -78,6 +78,7 @@ public class AuthController {
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
+        //TODO simplify adding roles
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("role not found"));

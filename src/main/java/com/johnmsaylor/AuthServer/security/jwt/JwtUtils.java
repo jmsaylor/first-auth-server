@@ -1,6 +1,4 @@
 package com.johnmsaylor.AuthServer.security.jwt;
-
-import com.johnmsaylor.AuthServer.model.User;
 import com.johnmsaylor.AuthServer.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
